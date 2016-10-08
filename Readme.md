@@ -3,13 +3,12 @@
 Project environment library for node projects. Can be used to collect stats on the project 
 and compare with artefact environment requirements. This can be used to determine if a given artefact is suitable for the project.
 
-The project uses the [node semver](https://github.com/npm/node-semver) library to determine if the project environment 
+The project uses the [semver](https://github.com/npm/node-semver) library to determine if the project environment 
 satisfies the artefact requirements.
-
 
 ## Usage
 - install/configure
-- run
+- test
 
 ### Install
 
