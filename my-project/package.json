@@ -1,0 +1,73 @@
+{
+  "name": "ai-component-bundler",
+  "description": "ai-component-bundler",
+  "version": "0.1.0",
+  "homepage": "https://github.com//ai-component-bundler",
+  "author": {
+    "name": "Kristian Mandrup",
+    "email": "kmandrup@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com//ai-component-bundler.git"
+  },
+  "bugs": {
+    "url": "https://github.com//ai-component-bundler/issues"
+  },
+  "license": "MIT",
+  "main": "lib/ai-component-bundler",
+  "engines": {
+    "node": ">= 5.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "scripts": {
+    "test": "./node_modules/gulp/bin/gulp.js",
+    "test-wp": "mocha-webpack --webpack-config webpack.config-test.js \".tmp/test/**/*_test.js\"",
+    "cover": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha .tmp/test/src"
+  },
+  "dependencies": {
+    "css-circle-menu": "github:callmenick/css-circle-menu",
+    "vue": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.5.2",
+    "babel-loader": "^6.2.2",
+    "babel-plugin-transform-runtime": "^6.5.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-runtime": "^6.9.2",
+    "css-loader": "^0.23.1",
+    "eslint": "^3.1.1",
+    "eslint-config-google": "^0.6.0",
+    "eslint-config-vue": "^1.0.3",
+    "eslint-plugin-html": "^1.5.1",
+    "file-loader": "^0.8.5",
+    "isparta": "^4.0.0",
+    "isparta-loader": "^2.0.0",
+    "istanbul": "^0.4.4",
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.2.0",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-coverage": "^1.1.1",
+    "karma-html-reporter": "^0.2.7",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "karma-spec-reporter": "0.0.26",
+    "karma-verbose-reporter": "0.0.3",
+    "karma-webpack": "^1.8.0",
+    "node-sass": "^3.4.2",
+    "phantomjs": "^2.1.7",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "vue-hot-reload-api": "^2.0.6",
+    "vue-html-loader": "^1.2.3",
+    "vue-loader": "^9.5.1",
+    "vue-style-loader": "^1.0.0",
+    "webpack": "^2.1.0-beta.21",
+    "webpack-dev-middleware": "^1.8.1",
+    "webpack-hot-middleware": "^2.12.2",
+    "webpack-dashboard": "^0.1.8",
+    "webpack-dev-server": "^1.15.0",
+    "webpack-merge": "^0.14.1"
+  }
+}
