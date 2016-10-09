@@ -1,5 +1,6 @@
 const fs = require('fs-promise');
 const path = require('path');
+const ArtefactMap = require('./map');
 
 class Artefact {
   constructor(rootPath) {
@@ -8,16 +9,12 @@ class Artefact {
 
   async read() {
     this.config = await this.readConfig();
-    this.map = await this.readMap();
-    return this;     
+    this.map = await new ArtefactMap(this.rootPath).read().map;
+    return this;
   }
 
   get artefactPath() {
     return path.join(this.rootPath, 'artefact.json');
-  }
-
-  get mapPath() {
-    return path.join(this.rootPath, 'map.json');
   }
 
   // load artefact.json
@@ -25,17 +22,17 @@ class Artefact {
     return await fs.readJson(this.artefactPath)
   }
 
+  get types() {
+    return Object.keys(this.env);   
+  }
+
   env() {
     return this.config.env;  
   }
 
-  // load map.json
-  async readMap() {
-    return await fs.readJson(this.mapPath)
-  }
-
   filesFor({type, lib, version}) {
-    this.env[type]    
+    let artefactType = new ArtefactType({type: type, env: this.env, rootPath: this.rootPath)
+    return artefactType.filesFor({lib, version});    
   }
 }
 
