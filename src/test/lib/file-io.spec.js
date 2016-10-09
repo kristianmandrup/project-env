@@ -1,3 +1,4 @@
+require('./helper');
 // const io = require('../../lib/file-io');
 
 describe('FileIO', () => {

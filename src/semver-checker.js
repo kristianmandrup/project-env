@@ -1,5 +1,5 @@
 const semver = require('semver');
-const libMap = require('./library/map.json');
+const libMap = require('./library/map');
 // const filter = require('./filter');
 const { pick } = require('lodash');
 

@@ -1,25 +1,40 @@
 // Filters a project model
-const libMap = require('./lib-map.json');
+const fs = require('fs-promise');
+const path = require('path');
+const libMap = require('./map');
 
 export default class Library {
   constructor(project, name) {
-    this.name = name;    
+    this.name = name;
+    this.project = project;    
+    this.package = project.package;
+  }
+
+  async read() { 
+    this.config = await this.packageConfig(); 
+    return this;
   }
 
   get packagePath() {
-    return path.join(project.rootPath, 'node_modules', name, 'package.json');
+    return path.join(this.project.rootPath, 'node_modules', this.name, 'package.json');
   }
 
-  async get package() {
-    return await fs.readJson(this.packagePath);
+  async packageConfig() {
+    try {
+      console.log('packagePath', this.packagePath);
+      return await fs.readJson(this.packagePath);
+    } catch (err) {
+      console.error('ERROR', err);
+      return {};
+    }    
   }
 
   get nameAndversion() {
-    return {name: package.name, version: package.version};
+    return {name: this.config.name, version: this.version};
   }  
 
   get version() {
-    return package.version;
+    return this.config.version;
   }  
 }
 

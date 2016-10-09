@@ -1,44 +1,60 @@
 const Library = require('../library');
+const _ = require('lodash');
+const libMap = require('../library/map');
 
-export default class Project {
+class Project {
   constructor(project, {type = 'app'}) {
     this.project = project;   
     this.type = type;
   }
 
-  get typedLibMap() {
+  get libsOfType() {
     return libMap[this.type];
   }
 
-  get libsOfType() {
-    return Object.keys(typedLibMap);
-  }
-
   get projectLibs() {
-    return Object.keys(project.libMap);
+    return Object.keys(this.project.libMap);
   }
     
-  filteredLibs() {
-    return _.filter(projectLibs, (lib) => return this.libsOfType.includes(lib));
+  get filteredLibs() {
+    console.log('project libs', this.projectLibs, this.libsOfType);
+    return _.filter(this.projectLibs, (lib) => this.libsOfType.includes(lib));
   }
-  
 
-  get libNameAndVersionMap() {
-    return this.filteredLibs.reduce( (res, libName) => {
-      res[libName] = new Library(project, libName).version;
-      return res;
-    }, {});
+
+  async version(libName) {
+    let lib = await new Library(this.project, libName).read();
+    console.log('version lib', lib.conf, lib.version);
+    return lib.version;
+  }
+
+  async reducer(res, libName) {
+    console.log('lib:', libName);
+    res[this.type] = res[this.type] || {};
+    res[this.type][libName] = await this.version(libName);
+    return res;
+  }
+
+  async libNameAndVersionMap() {
+    console.log('libs', this.filteredLibs);
+    try {
+      return await this.filteredLibs.reduce(this.reducer.bind(this), {});
+    } catch (err) {
+      console.error(err);
+      return {};
+    }    
   }  
 }
 
-function filter(project, opts = {depKey = 'dependencies', type = 'app'}) {
-    project.libMap = project.env[depKey];    
-    this.project = new Project(project, {type: type});
-    return this.project.libNameAndVersionMap; 
-  }
+async function filterLibs(project, opts = {depKey: 'dependencies', type: 'app'}) {
+  // console.log('filter project', project);
+
+  project.libMap = project.package[opts.depKey || 'dependencies'];   
+  this.project = new Project(project, {type: opts.type || 'app'});
+  return await this.project.libNameAndVersionMap();
 }
 
 export default {
-  filter: filter,
+  filter: filterLibs,
   clazz: Project 
 }

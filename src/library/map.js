@@ -1,4 +1,4 @@
-{
+export default {
   "app": [
     "vue",
     "ember",

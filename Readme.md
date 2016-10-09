@@ -6,9 +6,15 @@ and compare with artefact environment requirements. This can be used to determin
 The project uses the [semver](https://github.com/npm/node-semver) library to determine if the project environment 
 satisfies the artefact requirements.
 
+See [ES6 with babel 6 and webpack](http://jamesknelson.com/using-es6-in-the-browser-with-babel-6-and-webpack/)
+
 ## Usage
 - install/configure
 - test
+
+### Troubleshoot
+
+Try re-installing *babel-cli*: `npm install --save-dev babel-cli`
 
 ### Install
 
