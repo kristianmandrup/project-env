@@ -46,15 +46,15 @@ class Project {
   }  
 }
 
-async function filterLibs(project, opts = {depKey: 'dependencies', type: 'app'}) {
+async function buildEnv(project, opts = {depKey: 'dependencies', type: 'app'}) {
   // console.log('filter project', project);
 
   project.libMap = project.package[opts.depKey || 'dependencies'];   
-  this.project = new Project(project, {type: opts.type || 'app'});
-  return await this.project.libNameAndVersionMap();
+  let prj = new Project(project, {type: opts.type || 'app'});
+  return await prj.libNameAndVersionMap();
 }
 
 export default {
-  filter: filterLibs,
+  buildEnv: buildEnv,
   clazz: Project 
 }

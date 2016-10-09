@@ -23,6 +23,12 @@ Try re-installing *babel-cli*: `npm install --save-dev babel-cli`
 
 ## Usage
 
+Current this library includes the following:
+- Create project environment config
+- Semantic version environment check
+
+### Semantic version environment check
+
 Assuming we have the following project environment:
 
 ```js
@@ -71,6 +77,8 @@ We can then pass these environments to the `SemverChecker` and have it match the
 see how well the artefact would fit in the project environment.  
 
 ```js
+const SemverChecker = require('project-env').SemverChecker;
+
 let artefactEnv = fixtures.artefacts.components.contacts.env;
 let projectEnv = fixtures.projects.vueApp.env;
 
@@ -78,6 +86,26 @@ let semVerChecker = new SemverChecker(artefactEnv);
 
 // { app: { vue: false }, test: { mocha: false }, ui: { bootstrap: true }, styling: {} }
 let result = semVerChecker.satisfies(projectEnv);
+```
+
+### Create Project environment config
+
+We create a project configuration with the project `rootPath` and the `package.json` object.   
+
+```js
+let prjPath = path.join(__dirname, 'my-project');
+let project = {
+  config: {
+    rootPath: path.resolve(prjPath)
+    package: require('./my-project/package.json'),
+  }
+}
+
+const { buildEnv } = require('project-env').project;
+// { app: { vue: '2.0.1' } }
+
+// build project environment config from package.json and installed module versions
+let project.env = await buildEnv(project.config);
 ```
 
 ### Build
