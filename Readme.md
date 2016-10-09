@@ -110,7 +110,13 @@ let project.env = await buildEnv(project.config);
 
 ### Artefact project matcher
 
-WIP: See in `src/artefact`
+See in `src/artefact`
+
+```js
+let artefact = await artefactor.load(rootPath);
+// { '^2.0.0': { path: './ui/bootstrap' } }
+let matchingUi = await artefact.filesFor({type: 'ui', lib: 'bootstrap', version: '2.3.1'});
+```
 
 ### Mock file system
 
