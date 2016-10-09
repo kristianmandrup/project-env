@@ -1,0 +1,14 @@
+{
+  "name": "my-vue-app",
+  "env": {
+    "app": {
+      "vue": "2.0.1"
+    },
+    "test": {
+      "mocha": "2.8.9"
+    },
+    "ui": {
+      "bootstrap": "3.2.1"
+    }
+  }
+}

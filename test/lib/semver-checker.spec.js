@@ -1,32 +1,29 @@
-const SemverChecker = require('../../lib/semver-checker');
+const SemverChecker = require('../../src/semver-checker');
 
-const env = require('../env/vue-app.json');
-const package = require('../../my-project/package.json');
+const fixtures = require('../fixtures');
+
+// TODO: generate project env from real project with package.json
+// const package = require('../../my-project/package.json');
+// console.log('package', package);
 
 const expect = require('chai').expect;
 
-console.log('package', package);
-
 describe('SemVer', () => {
   describe('satisfies("vue", 0.1.1)', () => {
-    let semVer = new SemverChecker(env)
+    let artefactEnv = fixtures.artefacts.components.contacts.env;
+    let projectEnv = fixtures.projects.vueApp.env;
 
-    it('should be false', () => {   
-      let result = semVer.satisfies('vue', '1.1.1');   
-      console.log('result', result);      
-      expect(result).to.eql(true);       
-    });
-  });
-
-  describe('satisfiesAll(projectEnv)', () => {
-    let projectEnv = {
-      // load from file!?
-    };
+    let semVerChecker = new SemverChecker(artefactEnv);
+    console.log('artefactEnv', artefactEnv)
+    console.log('projectEnv', projectEnv)
 
     it('should return satisfy map', () => {   
-      let result = semVer.satisfiesAll(projectEnv);   
-      console.log('result', result);      
-      expect(result).to.eql(true);       
+      let result = semVerChecker.satisfies(projectEnv);   
+      console.log('result', result); 
+      // { vue: false, mocha: false, bootstrap: true }     
+      expect(result.vue).to.eql(false);
+      expect(result.mocha).to.eql(false);
+      expect(result.bootstrap).to.eql(true);       
     });
-  });    
+  });
 });

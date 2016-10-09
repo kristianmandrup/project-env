@@ -1,0 +1,18 @@
+{
+  "name": "login",
+  "env": {
+    "app": {
+      "vue": "^2.0.0"
+    },
+    "test": {
+      "mocha": "^2.3.0",
+      "nightwatch": "^0.9.0"
+    },
+    "ui": {
+      "foundation": "^6.2.0"
+    },
+    "styling": {
+      "css": "^3"
+    }    
+  }  
+}

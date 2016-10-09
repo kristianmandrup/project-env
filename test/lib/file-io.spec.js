@@ -1,4 +1,4 @@
-const io = require('../../lib/file-io');
+// const io = require('../../lib/file-io');
 
 describe('FileIO', () => {
   describe('load', () => {            
