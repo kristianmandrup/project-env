@@ -2,11 +2,10 @@ require('./helper');
 
 const Bluebird = require('bluebird');
 const Promise = Bluebird;
-
 const fs = require('fs-promise');
-const readFile = require('fs-readfile-promise');
-let fsa = require('fs-extra-promise');
-fsa.usePromise(Bluebird);
+// const readFile = require('fs-readfile-promise');
+// let fsa = require('fs-extra-promise');
+// fsa.usePromise(Bluebird);
 let fsp = Promise.promisifyAll(require('fs'));
 
 const path = require('path');
