@@ -61,8 +61,9 @@ export default class SemverChecker {
   satisfies(projectEnv) {
     return Object.keys(libMap).reduce( (satisfyMap, type) => {
       let typeSatisfyMap = new EnvChecker(projectEnv, this.artefactEnv).satisfyType(type);
-      // console.log('typeSatisfyMap', typeSatisfyMap);
-      return Object.assign(satisfyMap, typeSatisfyMap);
+      satisfyMap[type] = satisfyMap[type] || {};
+      satisfyMap[type] = typeSatisfyMap;
+      return satisfyMap;
     }, {});
   }
 }

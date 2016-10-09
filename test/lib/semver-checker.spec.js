@@ -20,10 +20,11 @@ describe('SemVer', () => {
     it('should return satisfy map', () => {   
       let result = semVerChecker.satisfies(projectEnv);   
       console.log('result', result); 
-      // { vue: false, mocha: false, bootstrap: true }     
-      expect(result.vue).to.eql(false);
-      expect(result.mocha).to.eql(false);
-      expect(result.bootstrap).to.eql(true);       
+      //  { app: { vue: false }, test: { mocha: false }, ui: { bootstrap: true }, styling: {} }     
+      expect(result.app.vue).to.eql(false);
+      expect(result.test.mocha).to.eql(false);
+      expect(result.ui.bootstrap).to.eql(true);
+      expect(result.styling).to.eql({});       
     });
   });
 });
