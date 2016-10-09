@@ -1,0 +1,9 @@
+class Pipeline {
+  constructor() {
+
+  }
+
+  read() {
+
+  }
+}

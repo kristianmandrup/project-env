@@ -108,6 +108,14 @@ const { buildEnv } = require('project-env').project;
 let project.env = await buildEnv(project.config);
 ```
 
+### Artefact project matcher
+
+WIP: See in `src/artefact`
+
+### Mock file system
+
+See `src/test/lib/file-mock.spec.js` on how to simulate files in a file system for testing.
+
 ### Build
 
 `npm run build` - builds `/src` folder and puts resulting ES5 `.js` files in `/dist`
