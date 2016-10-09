@@ -24,6 +24,7 @@
 //         }
 //       },
 
+const path = require('path');
 const semver = require('semver');
 const ArtefactMap = require('./map');
 
@@ -38,7 +39,7 @@ class LibVersion {
   get entryObj() {
     return _.pickBy(this.map[lib].versions, (obj, versionRange) => {
       return semver.satisfies(version, versionRange)
-    }  
+    });  
   }
 }
 
@@ -54,7 +55,7 @@ export default class ArtefactType {
   }
 
   get typePath() {
-    return path.join(this.rootPath, type);
+    return path.join(this.rootPath, this.type);
   }
 
   // load map.json

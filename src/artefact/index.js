@@ -1,6 +1,7 @@
 const fs = require('fs-promise');
 const path = require('path');
 const ArtefactMap = require('./map');
+const ArtefactType = require('./type');
 
 class Artefact {
   constructor(rootPath) {
@@ -9,7 +10,9 @@ class Artefact {
 
   async read() {
     this.config = await this.readConfig();
-    this.map = await new ArtefactMap(this.rootPath).read().map;
+    let mapped = await new ArtefactMap(this.rootPath).read();
+    console.log('map', mapped);
+    this.map = mapped.map;
     return this;
   }
 
@@ -26,12 +29,15 @@ class Artefact {
     return Object.keys(this.env);   
   }
 
-  env() {
+  get env() {
     return this.config.env;  
   }
 
-  filesFor({type, lib, version}) {
-    let artefactType = new ArtefactType({type: type, env: this.env, rootPath: this.rootPath)
+  async filesFor({type, lib, version}) {
+    let artefactType = new ArtefactType({type: type, env: this.env, rootPath: this.rootPath})
+    console.log('artefactType', artefactType);
+    artefactType = await artefactType.read();
+    console.log('read artefactType', artefactType);
     return artefactType.filesFor({lib, version});    
   }
 }
@@ -39,6 +45,11 @@ class Artefact {
 export default {
   clazz: Artefact,
   load: async function(rootPath) {
-    return await new Artefact(rootPath).read();
+    try {    
+      let artefact = new Artefact(rootPath);
+      return await artefact.read();
+    } catch (err) {
+      console.error('ERROR', err);
+    }
   }
 }
