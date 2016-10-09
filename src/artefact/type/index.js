@@ -27,6 +27,7 @@
 const path = require('path');
 const semver = require('semver');
 const ArtefactMap = require('./map');
+const _ = require('lodash');
 
 class LibVersion {
   constructor(artefactType, {lib, version}) {
@@ -37,14 +38,18 @@ class LibVersion {
   }
 
   get entryObj() {
-    return _.pickBy(this.map[lib].versions, (obj, versionRange) => {
-      return semver.satisfies(version, versionRange)
+    console.log('entry: map', this.map);
+    let lib = this.map[this.lib];
+    console.log('lib', lib);
+    let versions = this.map[this.lib].versions
+    return _.pickBy(versions, (obj, versionRange) => {
+      return semver.satisfies(this.version, versionRange)
     });  
   }
 }
 
 export default class ArtefactType {
-  constructor(type, rootPath, env) {
+  constructor({type, rootPath, env}) {
     this.type = type;
     this.rootPath = rootPath;
     this.env = env;
@@ -60,7 +65,10 @@ export default class ArtefactType {
 
   // load map.json
   async read() {
-    this.map = await new ArtefactMap(this.typePath).read().map;
+    let mapped = await new ArtefactMap({type: this.type, path: this.rootPath}).read();
+    this.map = mapped.map;
+    console.log('type:', this.type, 'map:', this.map)
+    return this;
   }
 
   // lib and version of project environment

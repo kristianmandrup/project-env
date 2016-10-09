@@ -29,21 +29,19 @@ describe('Artefact', () => {
               }
             }
           `,
-          'map.json': `
-            {
-              "ui": {
-                "vue": {
+          'ui': {
+            'map.json': `
+              {
+                "bootstrap": {
                   "versions": {
                     "^2.0.0": {
-                      "path": "./ui/vue"
+                      "path": "./ui/bootstrap"
                     }                    
                   }                  
-                }            
+                }
               }
-            }
-          `,
-          'ui': {
-            'vue': {
+            `,
+            'bootstrap': {
               'details.html': `<template><h1>{{message}}</h1></template>`
             }            
           }
@@ -57,20 +55,20 @@ describe('Artefact', () => {
     
     // TODO: use mock-fs to mock file system of artefact   
     let rootPath = 'contacts';
-    let type = 'ui', 
-        lib = 'bootstrap', 
-        version = '2.3.1';
+    let type = 'ui';
+    let lib = 'bootstrap'; 
+    let version = '2.3.1';
 
     it('should return entryObj', async () => {
       const fs = require('fs-promise');
-      let mapFile = await fs.readJson('contacts/map.json');
+      let mapFile = await fs.readJson('contacts/ui/map.json');
 
       console.log('mapFile', mapFile);
 
-      let artefact = await artefactor.load(rootPath)
+      let artefact = await artefactor.load(rootPath);
       console.log('artefact', artefact);
 
-      let result = artefact.filesFor({type, lib, version});
+      let result = await artefact.filesFor({type, lib, version});
       console.log('result', result)
       // expect(result.app).to.eql({vue: '2.0.1'});       
     });

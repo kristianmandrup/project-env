@@ -3,8 +3,9 @@ const fs = require('fs-promise');
 
 // base class for any class which uses map.json
 export default class ArtefactMap {
-  constructor(rootPath) {
-    this.rootPath = rootPath;
+  constructor({type, path}) {
+    this.path = path;
+    this.type = type;
   }
 
   async read() {
@@ -18,14 +19,12 @@ export default class ArtefactMap {
   }
 
   get mapPath() {
-    return path.join(this.rootPath, 'map.json');
+    return path.join(this.path, this.type, 'map.json');
   }  
 
   // load map.json
   async readMap() {
-    console.log('read map file', this.mapPath);
-    let obj = await fs.readJson(this.mapPath);
-    console.log('obj', obj);
-    return obj;
+    console.log('read map path:', this.mapPath);
+    return await fs.readJson(this.mapPath);
   }  
 }

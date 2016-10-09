@@ -1,6 +1,6 @@
 const fs = require('fs-promise');
 const path = require('path');
-const ArtefactMap = require('./map');
+const ArtefactMap = require('./type/map');
 const ArtefactType = require('./type');
 
 class Artefact {
@@ -10,9 +10,6 @@ class Artefact {
 
   async read() {
     this.config = await this.readConfig();
-    let mapped = await new ArtefactMap(this.rootPath).read();
-    console.log('map', mapped);
-    this.map = mapped.map;
     return this;
   }
 
@@ -34,8 +31,7 @@ class Artefact {
   }
 
   async filesFor({type, lib, version}) {
-    let artefactType = new ArtefactType({type: type, env: this.env, rootPath: this.rootPath})
-    console.log('artefactType', artefactType);
+    let artefactType = new ArtefactType({type: type, env: this.env, rootPath: this.rootPath});
     artefactType = await artefactType.read();
     console.log('read artefactType', artefactType);
     return artefactType.filesFor({lib, version});    
