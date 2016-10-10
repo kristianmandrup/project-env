@@ -23,7 +23,8 @@ describe('Pipeline', () => {
     })    
 
     let fileMap = {
-      'view-models': {
+      name: 'contacts',
+      viewModels: {
         lib: 'vue',
         rootPath: 'view-models',
         files: [
@@ -32,6 +33,28 @@ describe('Pipeline', () => {
           'list.js'
         ]
       },
+      config: {
+        lib: 'vue',
+        rootPath: 'config',
+        files: [
+          {path: 'state.js', type: 'state'},
+      },
+      service: {
+        lib: 'vue',
+        rootPath: 'services',
+        files: [
+          'contacts-api.js'
+        ]
+      },
+      store: {
+        lib: 'vuex',
+        rootPath: 'store',
+        files: [
+          {path: 'state.js', type: 'state'},
+          {path: 'actions.js', type: 'actions'},
+          {path: 'mutations.js', type: 'mutations'}
+        ]
+      }
       ui: {
         lib: 'bootstrap',
         rootPath: 'ui/bootstrap',
@@ -49,6 +72,9 @@ describe('Pipeline', () => {
       },
       viewModels: {
         vue: '2.0.1'
+      },
+      store: {
+        vuex: '2.0.1'
       },
       ui: {
         bootstrap: '3.2.1'
