@@ -118,6 +118,53 @@ let artefact = await artefactor.load(rootPath);
 let matchingUi = await artefact.filesFor({type: 'ui', lib: 'bootstrap', version: '2.3.1'});
 ```
 
+### Pipeline
+
+The pipeline takes a file map and a project environment configuration. 
+It then uses pre-registered read steps to map the file map into a registry with file descriptors. 
+The pipeline then traverses the registry. For each entry it performs write steps to map an entry into a file action descriptor. 
+These actions are then performed on the target destination, usually an application project on disk.  
+
+Pipeline example:  
+
+```js
+let fileMap = {
+  'view-models': {
+    lib: 'vue',
+    rootPath: 'view-models',
+    files: [
+      'item.js',
+      'details.js', 
+      'list.js'
+    ]
+  },
+  ui: {
+    lib: 'bootstrap',
+    rootPath: 'ui/bootstrap'
+    files: [
+      'details.html',
+      'item.html',
+      'list.html'
+    ]        
+  }
+};
+
+let projectEnv = {
+  app: {
+    vue: '2.0.1'
+  },
+  viewModels: {
+    vue: '2.0.1'
+  },
+  ui: {
+    bootstrap: '3.2.1'
+  }
+};
+
+const pipeline = new Pipeline({projectEnv, fileMap, rootPath});
+pipeline.execute();
+```
+
 ### Mock file system
 
 See `src/test/lib/file-mock.spec.js` on how to simulate files in a file system for testing.

@@ -11,6 +11,30 @@ export default {
           }
         }
       `,
+      'view-models': {
+        'map.json': `
+          {
+            "vue": {
+              "versions": {
+                "^2.0.0": {
+                  "path": "./view-models/vue"
+                }                    
+              }                  
+            }
+          }
+        `,
+        'vue': {
+          'details.js': `
+            export default class Details {};
+          `,
+          'item.js': `
+            export default class Item {};
+          `,
+          'list.js': `
+            export default class List {};
+          `,          
+        }
+      }
       'ui': {
         'map.json': `
           {
@@ -24,7 +48,9 @@ export default {
           }
         `,
         'bootstrap': {
-          'details.html': `<template><h1>{{message}}</h1></template>`
+          'details.html': `<template><h1>{{title}}</h1></template>`,
+          'item.html': `<template><h3>{{name}}</h3></template>`,
+          'list.html': `<template><ul v-for="item in items"><contact-item contact="{{contact}}"></contact-item></ul></template>`
         }            
       }
     }          

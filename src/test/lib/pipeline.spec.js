@@ -19,11 +19,36 @@ describe('Pipeline', () => {
     })    
 
     let fileMap = {
-
+      'view-models': {
+        lib: 'vue',
+        rootPath: 'view-models',
+        files: [
+          'item.js',
+          'details.js', 
+          'list.js'
+        ]
+      },
+      ui: {
+        lib: 'bootstrap',
+        rootPath: 'ui/bootstrap'
+        files: [
+          'details.html',
+          'item.html',
+          'list.html'
+        ]        
+      }
     };
 
     let projectEnv = {
-
+      app: {
+        vue: '2.0.1'
+      },
+      viewModels: {
+        vue: '2.0.1'
+      },
+      ui: {
+        bootstrap: '3.2.1'
+      }
     };
     
     const pipeline = new Pipeline(projectEnv, fileMap);
