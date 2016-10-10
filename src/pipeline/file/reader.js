@@ -7,6 +7,7 @@ export default class Reader {
     this.descriptor = descriptor;
   }
 
-  read() {
+  async readFile(descriptor) {
+    await fs.readFile(descriptor.path, 'utf8');
   }
 }

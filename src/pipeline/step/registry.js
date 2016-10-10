@@ -1,8 +1,9 @@
 const _ = require('lodash');
 
 export default class StepRegistry {
-  constructor({readSteps, writeSteps, identity}) {
+  constructor({config, readSteps, writeSteps, identity}) {
     // enable override of step identity function
+    this.config = config;
     this.identity = identity || this.identity; 
 
     // set up initial empty step containers
@@ -14,6 +15,12 @@ export default class StepRegistry {
 
   identity(entry) {
     return entry.id === step.id;    
+  }
+
+  activate(type) {
+    for (let step of this.container(type)) {
+      step.activate(this.config);
+    }
   }
 
   container(type) {
