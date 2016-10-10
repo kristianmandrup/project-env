@@ -33,18 +33,26 @@ class LibVersion {
   constructor(artefactType, {lib, version}) {
     this.artefactType = artefactType;
     this.map = artefactType.map;
+    this.type = artefactType.type;
     this.lib = lib;
     this.version = version;
   }
 
   get entryObj() {
-    console.log('entry: map', this.map);
     let lib = this.map[this.lib];
-    console.log('lib', lib);
     let versions = this.map[this.lib].versions
-    return _.pickBy(versions, (obj, versionRange) => {
-      return semver.satisfies(this.version, versionRange)
-    });  
+    // return _.pickBy(versions, (obj, versionRange) => {
+    //   return semver.satisfies(this.version, versionRange)
+    // });  
+
+    return Object.keys(versions).reduce( (res, versionRange) => {
+      // res[this.lib] = res[this.lib] || {}
+      if (semver.satisfies(this.version, versionRange)) {
+        res[this.lib] = versions[versionRange];         
+      } 
+      return res;
+    }, {});  
+
   }
 }
 
@@ -67,7 +75,6 @@ export default class ArtefactType {
   async read() {
     let mapped = await new ArtefactMap({type: this.type, path: this.rootPath}).read();
     this.map = mapped.map;
-    console.log('type:', this.type, 'map:', this.map)
     return this;
   }
 

@@ -33,7 +33,7 @@ class Artefact {
   async filesFor({type, lib, version}) {
     let artefactType = new ArtefactType({type: type, env: this.env, rootPath: this.rootPath});
     artefactType = await artefactType.read();
-    console.log('read artefactType', artefactType);
+    // console.log('read artefactType', artefactType);
     return artefactType.filesFor({lib, version});    
   }
 }

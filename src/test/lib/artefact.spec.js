@@ -13,40 +13,13 @@ require('./helper');
 // let fsp = Promise.promisifyAll(require('fs'));
 
 const mock = require('mock-fs');
+const mocks = require('./mocks');
 
 describe('Artefact', () => {  
   describe('filesFor', () => {
     before(() => {
-      mock({
-        'contacts':  {
-          'artefact.json': `
-            {
-              "name": "my-project",
-              "env": {
-                "ui": {
-                  "bootstrap": "2.0.1"
-                }
-              }
-            }
-          `,
-          'ui': {
-            'map.json': `
-              {
-                "bootstrap": {
-                  "versions": {
-                    "^2.0.0": {
-                      "path": "./ui/bootstrap"
-                    }                    
-                  }                  
-                }
-              }
-            `,
-            'bootstrap': {
-              'details.html': `<template><h1>{{message}}</h1></template>`
-            }            
-          }
-        }          
-      });    
+      console.log()
+      mock(mocks.artefacts.contacts);    
     });
 
     after(() => {
@@ -60,17 +33,23 @@ describe('Artefact', () => {
     let version = '2.3.1';
 
     it('should return entryObj', async () => {
-      const fs = require('fs-promise');
-      let mapFile = await fs.readJson('contacts/ui/map.json');
-
-      console.log('mapFile', mapFile);
+      // const fs = require('fs-promise');
+      // let mapFile = await fs.readJson('contacts/ui/map.json');
+      // console.log('mapFile', mapFile);
 
       let artefact = await artefactor.load(rootPath);
-      console.log('artefact', artefact);
+      // console.log('artefact', artefact);
 
       let result = await artefact.filesFor({type, lib, version});
+
+      // TODO: fix pickBy in entryObj(), should return result wrapped by type key?
+      // { ui: { path: './ui/bootstrap' } }
+
+      // Current results: 
+      // pickBy { '^2.0.0': { path: './ui/bootstrap' } }
+      // reduce { 'bootstrap': { path: './ui/bootstrap' } }
       console.log('result', result)
-      // expect(result.app).to.eql({vue: '2.0.1'});       
+      expect(result.bootstrap.path).to.eql('./ui/bootstrap');       
     });
   });
 });

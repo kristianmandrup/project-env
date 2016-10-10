@@ -24,7 +24,6 @@ export default class ArtefactMap {
 
   // load map.json
   async readMap() {
-    console.log('read map path:', this.mapPath);
     return await fs.readJson(this.mapPath);
   }  
 }
