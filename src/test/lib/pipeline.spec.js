@@ -22,6 +22,10 @@ describe('Pipeline', () => {
       mock.restore();
     })    
 
+    // TODO:
+    // Use schema generator to generate/test different configurations based on schema rules 
+    // https://www.npmjs.com/package/json-schema-generator
+
     let fileMap = mocks.fileMaps.contacts;
 
     let projectEnv = {

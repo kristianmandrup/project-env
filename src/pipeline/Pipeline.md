@@ -36,8 +36,8 @@ The file descriptors and content are then processed by one or more `readTransfor
 and inserted into a `registry`.
 
 A file traverse then traverses the registry and processes each using one or more `writeTransform` steps 
-while building a new file map list which is sent to an IO output adapter to be written to a destination such 
-as a project on disk. 
+while building a new list of file action descriptors which is sent to an IO output adapter 
+to be executed on a target, such as a project on disk. 
 
 ### File Reader
 
