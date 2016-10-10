@@ -5,13 +5,6 @@ const artefactor = require('../../artefact');
 
 const expect = require('chai').expect;
 
-require('./helper');
-
-// const Bluebird = require('bluebird');
-// const Promise = Bluebird;
-// const fs = require('fs-promise');
-// let fsp = Promise.promisifyAll(require('fs'));
-
 const mock = require('mock-fs');
 const mocks = require('./mocks');
 
@@ -33,13 +26,7 @@ describe('Artefact', () => {
     let version = '2.3.1';
 
     it('should return entryObj', async () => {
-      // const fs = require('fs-promise');
-      // let mapFile = await fs.readJson('contacts/ui/map.json');
-      // console.log('mapFile', mapFile);
-
       let artefact = await artefactor.load(rootPath);
-      // console.log('artefact', artefact);
-
       let result = await artefact.filesFor({type, lib, version});
 
       // TODO: fix pickBy in entryObj(), should return result wrapped by type key?

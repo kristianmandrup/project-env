@@ -1,21 +1,19 @@
 class Reader {
-  constructor() {
-
+  constructor(descriptor) {
+    this.descriptor = descriptor;
   }
 
   read() {
-
   }
 }
 
 
 class Writer {
-  constructor() {
-    
+  constructor(descriptor) {
+    this.descriptor = descriptor;    
   }
 
   write() {
-
   }  
 }
 
