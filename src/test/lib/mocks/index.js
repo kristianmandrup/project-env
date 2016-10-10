@@ -1,3 +1,5 @@
 export default {
-  artefacts: require('./artefacts')
+  artefacts: require('./artefacts'),
+  projects: require('./projects'),
+  fileMaps: require('./file-maps'),
 }
