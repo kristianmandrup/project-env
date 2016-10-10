@@ -120,9 +120,9 @@ let matchingUi = await artefact.filesFor({type: 'ui', lib: 'bootstrap', version:
 
 ### Pipeline
 
-The pipeline takes a file map and a project environment configuration. 
-It then uses pre-registered read steps to map the file map into a registry with file descriptors. 
-The pipeline then traverses the registry. For each entry it performs write steps to map an entry into a file action descriptor. 
+The pipeline takes a `fileMap` and a `project` configuration. 
+It then uses pre-registered *read steps* to map the file map into a `registry` with *file descriptors*. 
+The pipeline then traverses the `registry`. For each entry, it performs *write steps* to map an entry into a *file action descriptor*. 
 These actions are then performed on the target destination, usually an application project on disk.  
 
 Pipeline example:  
@@ -149,19 +149,22 @@ let fileMap = {
   }
 };
 
-let projectEnv = {
-  app: {
-    vue: '2.0.1'
-  },
-  viewModels: {
-    vue: '2.0.1'
-  },
-  ui: {
-    bootstrap: '3.2.1'
+let project = {
+  rootPath: 'vueApp',
+  env: {
+    app: {
+      vue: '2.0.1'
+    },
+    viewModels: {
+      vue: '2.0.1'
+    },
+    ui: {
+      bootstrap: '3.2.1'
+    }
   }
-};
+}
 
-const pipeline = new Pipeline({projectEnv, fileMap, rootPath});
+const pipeline = new Pipeline({project, fileMap});
 pipeline.execute();
 ```
 

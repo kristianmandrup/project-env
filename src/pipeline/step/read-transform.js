@@ -6,6 +6,7 @@ const BaseStep = require('./base');
 
 export default class ReadTransformStep extends BaseStep {
   constructor(descriptor, content) {
+    super();
     this.descriptor = descriptor;
     this.content = content; 
   }

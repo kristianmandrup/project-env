@@ -1,9 +1,9 @@
 const Registry = require('./registry');
 
 export default class Pipeline {
-  constructor(projectEnv, fileMap) {
+  constructor({project, fileMap}) {
     this.registry = new Registry();
-    this.projectEnv = projectEnv;
+    this.project = project; // includes rootPath and env  
     this.fileMap = fileMap; 
   }
 
@@ -15,11 +15,11 @@ export default class Pipeline {
 
   activateStep(step) {
     step.activate({
-      projectEnv: this.projectEnv, 
+      project: this.project, 
       registry: this.registry
     })
   }
 
-  transform() {
+  execute() {
   }
 }

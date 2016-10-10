@@ -6,6 +6,7 @@ const BaseStep = require('./base');
 
 export default class WriteTransformStep extends BaseStep {
   constructor(entry, registry) {
+    super();
     this.entry = entry;
     this.registry = registry;
   }

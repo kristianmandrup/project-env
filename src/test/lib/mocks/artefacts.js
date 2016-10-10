@@ -34,7 +34,7 @@ export default {
             export default class List {};
           `,          
         }
-      }
+      },
       'ui': {
         'map.json': `
           {

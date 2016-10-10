@@ -11,7 +11,11 @@ const mocks = require('./mocks');
 describe('Pipeline', () => {  
   describe('transform', () => {
     before(() => {
-      mock(mocks.artefacts.contacts);    
+      // mock the contacts component
+      mock(mocks.artefacts.contacts);
+
+      // mock the vue app
+      mock(mocks.projects.vueApp);
     });
 
     after(() => {
@@ -30,7 +34,7 @@ describe('Pipeline', () => {
       },
       ui: {
         lib: 'bootstrap',
-        rootPath: 'ui/bootstrap'
+        rootPath: 'ui/bootstrap',
         files: [
           'details.html',
           'item.html',
@@ -50,11 +54,16 @@ describe('Pipeline', () => {
         bootstrap: '3.2.1'
       }
     };
+
+    let project = {
+      rootPath: 'vueApp',
+      env: projectEnv
+    }
     
-    const pipeline = new Pipeline(projectEnv, fileMap);
+    const pipeline = new Pipeline({project, fileMap});
 
     it('should return output fileMap', async () => {
-      let result = await pipeline.transform();
+      let result = await pipeline.execute();
       console.log('result', result)       
     });
   });
