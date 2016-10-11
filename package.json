@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha -t 2000 dist/test/**/pipeline.spec.js",
+    "test": "./node_modules/mocha/bin/mocha -t 2000 dist/test/**/pipeline/file/actions.spec.js",
     "build": "babel src -d dist",
     "watch": "babel src --watch -d dist"
   },

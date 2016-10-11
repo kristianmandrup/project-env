@@ -13,7 +13,8 @@ const mock = require('mock-fs');
 
 const expect = require('chai').expect;
 
-describe('FileIO', () => {
+// Demonstrates reading files with async/await using mock-fs
+describe('File mocking', () => {
   before(() => {
     mock({
       'map.json': `

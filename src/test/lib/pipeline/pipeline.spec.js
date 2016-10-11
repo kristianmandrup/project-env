@@ -1,12 +1,12 @@
-require('./helper');
+require('../helper');
 
 const path = require('path');
-const Pipeline = require('../../pipeline');
+const Pipeline = require('../../../pipeline');
 
 const expect = require('chai').expect;
 
 const mock = require('mock-fs');
-const mocks = require('./mocks');
+const mocks = require('../../mocks');
 
 describe('Pipeline', () => {  
   describe('transform', () => {

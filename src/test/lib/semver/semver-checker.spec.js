@@ -1,7 +1,7 @@
-require('./helper');
-const SemverChecker = require('../../semver-checker');
+require('../helper');
+const SemverChecker = require('../../../semver-checker');
 
-const fixtures = require('../../../fixtures');
+const fixtures = require('../../../../fixtures');
 
 console.log('fixtures', fixtures);
 

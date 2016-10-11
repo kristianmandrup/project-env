@@ -1,12 +1,12 @@
-require('./helper');
+require('../helper');
 
 const path = require('path');
-const artefactor = require('../../artefact');
+const artefactor = require('../../../artefact');
 
 const expect = require('chai').expect;
 
 const mock = require('mock-fs');
-const mocks = require('./mocks');
+const mocks = require('../../mocks');
 
 describe('Artefact', () => {  
   describe('filesFor', () => {

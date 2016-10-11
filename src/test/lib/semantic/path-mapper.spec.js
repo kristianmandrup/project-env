@@ -1,15 +1,15 @@
-require('./helper');
+require('../helper');
 
 const path = require('path');
-const Pipeline = require('../../pipeline');
+const PathMapper = require('../../../semantic').PathMapper;
 
 const expect = require('chai').expect;
 
 const mock = require('mock-fs');
-const mocks = require('./mocks');
+const mocks = require('../../mocks');
 
-describe('Pipeline', () => {  
-  describe('transform', () => {
+describe('SemanticPathMapper', () => {  
+  describe('create', () => {
     before(() => {
       // mock the contacts component
       mock(mocks.artefacts.contacts);

@@ -4,7 +4,7 @@ const inquirer = require('inquirer');
 // For inspiration:
 // See https://github.com/kristianmandrup/ai-core/blob/master/lib/utils/io.js
 
-class Base {
+export default class Base {
   constructor(descriptor) {
     this.descriptor = descriptor;
     this.paths = descriptor.paths;
