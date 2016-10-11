@@ -5,12 +5,24 @@ export default {
         {
           "name": "my-project",
           "env": {
+            "app": {
+              "vue": "^2.0.1"
+            },
             "ui": {
-              "bootstrap": "2.0.1"
+              "bootstrap": "^2.0"
+            },
+            "styles": {
+              "bootstrap": "^2.0"
             }
           }
         }
       `,
+      'map.json': `
+        {
+          "views": './ui',
+          "viewModels": 'view-models'
+        }
+      `,      
       'view-models': {
         'map.json': `
           {
@@ -52,6 +64,15 @@ export default {
           'item.html': `<template><h3>{{name}}</h3></template>`,
           'list.html': `<template><ul v-for="item in items"><contact-item contact="{{contact}}"></contact-item></ul></template>`
         }            
+      },
+      'styles': {
+        "bootstrap": {
+          "versions": {
+            "^2.0.0": {
+              "path": "./styles/bootstrap"
+            }                    
+          }                  
+        }        
       }
     }          
   }  

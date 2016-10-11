@@ -21,6 +21,7 @@ export default class StepRegistry {
     for (let step of this.container(type)) {
       step.activate(this.config);
     }
+    return this;
   }
 
   container(type) {

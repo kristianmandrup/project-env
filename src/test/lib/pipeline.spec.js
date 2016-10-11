@@ -35,6 +35,9 @@ describe('Pipeline', () => {
       viewModels: {
         vue: '2.0.1'
       },
+      views: {
+        vue: '2.0.1'
+      },
       store: {
         vuex: '2.0.1'
       },
@@ -49,6 +52,8 @@ describe('Pipeline', () => {
     }
     
     const pipeline = new Pipeline({project, fileMap});
+
+    // the pipeline should take the viewModels, views (in ui) and styles and put them in .vue files
 
     it('should return output fileMap', async () => {
       let result = await pipeline.execute();

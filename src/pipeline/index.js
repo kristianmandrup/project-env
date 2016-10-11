@@ -11,13 +11,9 @@ export default class Pipeline {
     }
   }
 
-  activateStep(step) {
-    step.activate({
-      project: this.conf.project, 
-      registry: this.conf.registry
-    })
-  }
-
   execute() {
+    stepRegistry
+      .activate('read')
+      .activate('write');
   }
 }
