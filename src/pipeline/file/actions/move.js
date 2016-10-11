@@ -14,7 +14,7 @@ class Move extends Base {
     if (!doRemove) return;
 
     if (this.exists.destPath) {
-      let { doOverwrite} await this.question(overwrite);
+      let { doOverwrite} = await this.question(overwrite);
       if (!doOverwrite) return;
     }
 

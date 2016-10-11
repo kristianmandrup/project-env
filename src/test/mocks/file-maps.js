@@ -14,7 +14,8 @@ export default {
       lib: 'vue',
       rootPath: 'config',
       files: [
-        {path: 'state.js', type: 'state'},
+        {path: 'state.js', type: 'state'}
+      ]
     },
     services: {
       lib: 'vue',
@@ -31,7 +32,7 @@ export default {
         {path: 'actions.js', type: 'actions'},
         {path: 'mutations.js', type: 'mutations'}
       ]
-    }
+    },
     ui: {
       lib: 'bootstrap',
       rootPath: 'ui/bootstrap',

@@ -21,6 +21,11 @@ describe('File actions', () => {
     mock.restore();
   })    
 
+  // TODO: make it a class
+  let descriptor = {
+
+  }
+
   describe('write using descriptor', () => {
     it('should ask to overwrite, then write a file if confirmed', async () => {
       let result = await actions.write(descriptor)

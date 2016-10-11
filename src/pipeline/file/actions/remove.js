@@ -1,7 +1,7 @@
 const Base = require('./base');
 const { remove } = require('./questions')
 
-export default class Remove extends Base {
+class Remove extends Base {
   constructor(descriptor) {
     super(descriptor);
   }

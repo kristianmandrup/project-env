@@ -5,11 +5,14 @@ const inquirer = require('inquirer');
 // See https://github.com/kristianmandrup/ai-core/blob/master/lib/utils/io.js
 
 export default class Base {
-  constructor(descriptor) {
-    this.descriptor = descriptor;
-    this.paths = descriptor.paths;
-    this.srcPath = descriptor.srcPath || descriptor.paths.src;
-    this.destPath = descriptor.destPath || descriptor.paths.dest;
+  // use validated config object of descriptor
+  constructor({config}) {
+    this.config = config;
+    this.paths = config.paths;
+    // TODO: clean up?
+    this.srcPath = config.paths.src;
+    this.destPath = config.paths.dest;
+
     this.ask = inquirer.prompt;     
     this.fs = require('fs-promise');
     this.exists = {};
@@ -23,7 +26,7 @@ export default class Base {
     return this;      
   }
 
-  // single question object
+  // pose a single question
   async question(q) {
     return await this.ask([q]);
   }

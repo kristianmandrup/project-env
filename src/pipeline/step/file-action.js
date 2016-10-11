@@ -16,7 +16,7 @@ export default class FileActionStep extends BaseStep {
     return {
       action: 'write',
       onConflict: 'overwrite',
-      content: this.entry.content
+      content: this.entry.content,
       targetPath: this.entry.path
     }    
   }

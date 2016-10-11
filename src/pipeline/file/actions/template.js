@@ -10,31 +10,36 @@ class Template extends Base {
   // - render is optional (ejs by default)
   constructor(descriptor, {templator = templator}) {
     super(descriptor);
+    this.data = descriptor.data;
     this.template = descriptor.template; // TODO: we should have a template registry and find by name! 
     this.createTemplator(templator);
   }
 
   createTemplator() {
     let destination = {
-      fullPath: this.destPath; 
+      fullPath: this.destPath
     };
 
-    this.templator = templator({destination, template: this.template, data: this.data});
+    this.templator = templator({
+      destination, 
+      template: this.template, 
+      data: this.template.data
+    });
   }
 
   async generate() {
-    await return this.templator.generate();
+    return await this.templator.generate();
   }
 
   async execute() {
     if (!this.exists.srcPath) return;
 
     if (this.exists.destPath) {
-      let { doOverwrite} await this.question(overwrite);
+      let { doOverwrite } = await this.question(overwrite);
       if (!doOverwrite) return;
     }
 
-    await this.generate();    
+    return await this.generate();    
   }  
 }
 
