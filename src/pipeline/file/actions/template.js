@@ -1,9 +1,29 @@
 const Base = require('./base');
 const { overwrite } = require('./questions')
+const { templator } = require('./utils');
 
 class Template extends Base {
-  constructor(descriptor) {
+  // templator is a factory function({destination, template, data, render}) which can create a template
+  // - destination contains info on the destination, ie. where to generate the output file
+  // - template contains info on where to find the template
+  // - data is the data object sent to the template
+  // - render is optional (ejs by default)
+  constructor(descriptor, {templator = templator}) {
     super(descriptor);
+    this.template = descriptor.template; // TODO: we should have a template registry and find by name! 
+    this.createTemplator(templator);
+  }
+
+  createTemplator() {
+    let destination = {
+      fullPath: this.destPath; 
+    };
+
+    this.templator = templator({destination, template: this.template, data: this.data});
+  }
+
+  async generate() {
+    await return this.templator.generate();
   }
 
   async execute() {
@@ -14,12 +34,12 @@ class Template extends Base {
       if (!doOverwrite) return;
     }
 
-    await fs.writeFile(this.target, this.content, 'utf8');    
+    await this.generate();    
   }  
 }
 
 async function create(descriptor) {
-  let action = new Write(descriptor)
+  let action = new Template(descriptor)
   return await action.init(); 
 }
 
