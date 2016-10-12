@@ -15,7 +15,7 @@ class Merge extends Base {
 
     await this.merge({
       paths: this.paths,
-      jsonPath: this.jsonPath // json-path ie. point to merge
+      mergePath: this.mergePath // json-path ie. point to merge
     });    
   }  
 }

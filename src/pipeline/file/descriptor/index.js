@@ -3,7 +3,8 @@ const Validator = require('jsonschema').Validator;
 // TODO: perhaps use json-schema !?
 class FileDescriptor {
   constructor({
-    paths, // obj includes src and dest
+    mergePath, // place in json sructure to merge
+    filePath, // obj includes src and dest
     content, // file content of src file
     template, // obj includes path and data
     action, // File action to perform
@@ -12,8 +13,9 @@ class FileDescriptor {
 
     // filtering only relevant properties
     this.config = {
-      action, 
-      paths, 
+      action,
+      mergePath, 
+      filePath, 
       content,
       template, 
       meta

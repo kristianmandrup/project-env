@@ -5,7 +5,10 @@ export default {
       type: 'string',
       enum: ['merge', 'move', 'remove', 'template', 'write']
     },
-    paths: {
+    mergePath: {
+      type: 'string'
+    },
+    filePath: {
       type: 'object',
       properties: {
         src: {
@@ -35,5 +38,5 @@ export default {
       type: 'object'
     }    
   },
-  required: ['action', 'paths']
+  required: ['action', 'filePath']
 };

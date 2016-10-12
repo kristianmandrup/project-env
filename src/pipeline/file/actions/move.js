@@ -18,8 +18,12 @@ class Move extends Base {
       if (!doOverwrite) return;
     }
 
-    await fs.move(this.path, this.target);    
-  }  
+    return await this.perform(this.moveFile);        
+  }
+
+  async moveFile() {
+    await fs.moveFile(this.path, this.target);
+  }   
 }
 
 async function create(descriptor) {

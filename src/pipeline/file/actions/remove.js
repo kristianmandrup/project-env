@@ -13,8 +13,12 @@ class Remove extends Base {
     let { doRemove } = await this.question(remove);
     if (!doRemove) return;
 
-    await fs.removeFile(this.path);    
+    return await this.perform(this.removeFile);        
   }
+
+  async removeFile() {
+    await fs.removeFile(this.path);
+  }    
 }
 
 async function create(descriptor) {
