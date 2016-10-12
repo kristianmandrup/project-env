@@ -1,4 +1,4 @@
-const fs = require('./fs-promise');
+const fs = require('fs-promise');
 const ejs = require('ejs'); // default template
 const path = require('path');
 

@@ -1,7 +1,7 @@
 require('../../helper');
 
 const path = require('path');
-const actions = require('../../../../pipeline/file/actions');
+const { actions, createDescriptor } = require('../../../../pipeline/file);
 
 const expect = require('chai').expect;
 
@@ -22,21 +22,23 @@ describe('File actions', () => {
   })    
 
   // TODO: make it a class
-  let descriptor = {
-
+  let config = {
+    action: 'move',
+    paths: {
+      content: `Hello world`
+      dest: 'vueApp/client/components/Hello.vue'
+    }    
   }
+  
+  let descriptor = createDescriptor(config);
 
-  describe('write using descriptor', () => {
+  describe('write using descriptor', async () => {
     it('should ask to overwrite, then write a file if confirmed', async () => {
-      let result = await actions.write(descriptor)
-      expect(result).to.eql(descriptor.content);    
-    });
-  });
+      let writeAction = await actions.write(descriptor);
+      expect(writeAction.config).to.eql(config);
 
-  describe('overwrite using descriptor with overwrite set', () => {
-    it('should write a file, no questions asked', async () => {
-      let result = await actions.write(descriptor)
-      expect(result).to.eql(descriptor.content);        
+      let result = await writeAction.excute();
+      expect(result).to.eql(true);    
     });
   });
 });
