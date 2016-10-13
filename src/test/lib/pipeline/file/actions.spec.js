@@ -1,7 +1,7 @@
 require('../../helper');
 
 const path = require('path');
-const { actions, createDescriptor } = require('../../../../pipeline/file);
+const { actions, createDescriptor } = require('../../../../pipeline/file');
 
 const expect = require('chai').expect;
 
@@ -25,7 +25,7 @@ describe('File actions', () => {
   let config = {
     action: 'move',
     paths: {
-      content: `Hello world`
+      content: 'Hello world',
       dest: 'vueApp/client/components/Hello.vue'
     }    
   }

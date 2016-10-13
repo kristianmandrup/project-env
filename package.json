@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha -t 2000 dist/test/**/pipeline/file/actions.spec.js",
+    "test": "./node_modules/mocha/bin/mocha -t 2000 dist/test/**/component/html-decomposer.spec.js",
     "build": "babel src -d dist",
     "watch": "babel src --watch -d dist"
   },
@@ -27,7 +27,8 @@
     "lodash": "^4.16.4",
     "mock-fs": "^3.11.0",
     "semver": "^5.3.0",
-    "url-join": "^1.1.0"
+    "url-join": "^1.1.0",
+    "htmlparser2": "romellem/htmlparser2#master"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
