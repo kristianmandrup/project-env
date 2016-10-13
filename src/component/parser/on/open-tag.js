@@ -1,12 +1,11 @@
 export default function(ctx) {
   return (name, attribs) => {
-    console.log('tag', name, attribs);
+    console.log('OPEN tag', name, attribs);
+    console.log('CTX', ctx);
+
     if (ctx.ignoreTags.includes(name)) {
       return;           
     }
-
-    if (name === 'nav')
-      console.log('!!!! OPEN NAV');
 
     let id = attribs.id;
     let type = 'sibling';
@@ -16,11 +15,16 @@ export default function(ctx) {
       ctx.currentLv++;
     }
 
-    if (ctx.currentLv > ctx.maxLevel) {
-      ctx.maxLevel = ctx.currentLv;
+    if (ctx.currentLv > ctx.lastLv) {
+      console.log('ENTERED NEW SCOPE');
     }
 
-    console.log('LEVEL', ctx.currentLv)
+    ctx.lastLv = ctx.currentLv; 
+
+    if (ctx.currentLv > ctx.maxLevel) {
+      ctx.maxLevelFound = ctx.currentLv;
+    }
+
     ctx.lastEvent = 'open';
     ctx.opened = true;
 
@@ -35,13 +39,12 @@ export default function(ctx) {
     // TODO: this is WRONG! 
     // How can I detect if node is child or sibling!?
     if (type === 'child') {
-      console.log('Add new CHILD', config)
       ctx.node.children.push(config);          
     }         
     ctx.node = config;
 
     // if crazy bad tree
-    if (ctx.currentLv > 20) {
+    if (ctx.currentLv > ctx.maxLvAllowed) {
       console.error('ABORTING: Too many element levels!!! No more than 20 please!')
       process.exit(1);
     }
@@ -49,26 +52,19 @@ export default function(ctx) {
     if (ctx.quitComponent) return;
 
     if (!ctx.component && !ctx.startComponent) {
-      console.log('no component');
       return;
     }            
 
     let componentConfig = Object.assign(config);
     delete componentConfig['parent'];
 
-    console.log('component config', componentConfig);
-
     if (ctx.startComponent) {          
-      console.log('STARTING COMPONENT', id);
       ctx.component = componentConfig;
       ctx.components[id] = ctx.component;            
       ctx.startComponent = false; 
     } else {
       // TODOL should max be 8 children!
       ctx.children++;
-      console.log('child count', ctx.children)
-      console.log('SUB CHILD', name); 
-
       if (type === 'child') {
         ctx.component.children.push(componentConfig);
       }

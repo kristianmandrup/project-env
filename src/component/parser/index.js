@@ -6,12 +6,19 @@ let defaultCtx = {
   components: {},
   children: 0,
   currentLv: 0,
+  maxLvAllowed: 20,
   lastLv: 0,
   opened: false, 
-  maxLevel: 0,
+  maxLevelFound: 0,
   startComponent: false,
   ignoreTags: ['head', 'meta', 'link', 'title']
 }
+
+// TODO: wrap in higher level Object with more/better event handlers:
+// - onIncLevel(currentlevel)
+// - onDecLevel(currentlevel)
+// - onSibling(name, attribs)
+// - onFirstChild(name, attribs)
 
 export default function(resolve, reject, opts = {}) {
   opts.on = opts.on || {}; 

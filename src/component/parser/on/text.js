@@ -1,6 +1,9 @@
 export default function(ctx) {
   return (text) => {
-    ctx.node.text = text;
+    let trimmed = text.trim();
+    if (/\S/.test(trimmed)) {      
+      ctx.node.text = trimmed;
+    }     
   }
 } 
 
