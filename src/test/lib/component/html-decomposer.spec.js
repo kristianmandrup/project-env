@@ -15,7 +15,7 @@ describe('Component', () => {
       let json = JSON.stringify({components: components}, null, '  ');
       console.log('done', json);
 
-      expect(components[0].children.length).to.eql(2);
+      expect(components['myNavWrapper'].children.length).to.eql(2);
     });
   });
 });
