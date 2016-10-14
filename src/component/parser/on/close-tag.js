@@ -21,9 +21,11 @@ export default function(ctx) {
       }                
     }
 
-    // set node to parent since we are exciting current scope/level
-    if (ctx.node.parent) {
+    // move node and parent up one lv since we are exciting current scope/level
+    if (ctx.node.parent) {  
       ctx.node = ctx.node.parent
+      if (ctx.node.parent)
+        ctx.parent = ctx.node.parent
     }
   }
 }

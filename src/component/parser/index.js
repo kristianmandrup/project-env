@@ -3,6 +3,7 @@ const onEvent = require('./on');
 
 let defaultCtx = {
   node: {}, 
+  parent: {},
   components: {},
   children: 0,
   currentLv: 0,

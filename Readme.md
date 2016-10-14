@@ -29,7 +29,7 @@ Current this library includes the following:
 
 ### Semantic version environment check
 
-Assuming we have the following project environment:
+Project environment
 
 ```js
 {
@@ -48,7 +48,7 @@ Assuming we have the following project environment:
 }
 ```
 
-And the following artefact environment requirements:
+Artefact environment requirements
 
 ```js
 {
@@ -70,6 +70,15 @@ And the following artefact environment requirements:
       "sass": "^3.4.0"
     }    
   }  
+}
+```
+
+```js
+{ 
+  app: { vue: false }, 
+  test: { mocha: false }, 
+  ui: { bootstrap: true }, 
+  styling: {} 
 }
 ```
 
@@ -147,7 +156,7 @@ let fileMap = {
       'list.html'
     ]        
   }
-};
+}
 
 let project = {
   rootPath: 'vueApp',

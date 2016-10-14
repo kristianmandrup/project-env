@@ -3,15 +3,23 @@ export default function(ctx) {
     console.log('OPEN tag', name, attribs);
     console.log('CTX', ctx);
 
+    // ignore elements certain elements
     if (ctx.ignoreTags.includes(name)) {
       return;           
     }
 
+    if (name === 'body')
+      ctx.inBody = true;
+
+    // only makes sense to proceed if we are inside a body
+    if (!ctx.inBody)
+      return;
+
     let id = attribs.id;
-    let type = 'sibling';
+    let nodeType = 'sibling';
     
     if (ctx.lastEvent === 'open') {
-      type = 'child';
+      nodeType = 'newChild';
       ctx.currentLv++;
     }
 
@@ -38,9 +46,12 @@ export default function(ctx) {
 
     // TODO: this is WRONG! 
     // How can I detect if node is child or sibling!?
-    if (type === 'child') {
-      ctx.node.children.push(config);          
-    }         
+    if (nodeType === 'newChild') {
+      ctx.parent = ctx.node;
+    }
+    if (ctx.parent.children) 
+      ctx.parent.children.push(config);    
+
     ctx.node = config;
 
     // if crazy bad tree
@@ -65,7 +76,8 @@ export default function(ctx) {
     } else {
       // TODOL should max be 8 children!
       ctx.children++;
-      if (type === 'child') {
+
+      if (nodeType === 'child') {
         ctx.component.children.push(componentConfig);
       }
 
