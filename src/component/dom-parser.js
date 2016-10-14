@@ -19,6 +19,16 @@ console.log('children', c.childNodes)
 // alternatively simply use html2json or himalaya (recommended)
 // this is for full control!!
 
+// TODO: call with event handlers to make it flexible and externalise complex logic
+// also make the signature: node, parent, ctx, options = {}
+// perhaps we could even set parent in the context itself
+// ctx: {root: {}, parent: [-> to Object in ctx tree]}
+
+// the ctx is the context which assembles the resulting tree in root
+// it could also collect various stats
+// options contain various callbacks, for handling attributes, updating context etc.
+// opts.element.onAttributes, opts.element.updateParent, opts.element.createChild 
+
 function theDOMElementWalker(node, ctx = {}, parent) {
   if (node.nodeType == 3) {
     parent.text = node.nodeValue;
@@ -29,6 +39,8 @@ function theDOMElementWalker(node, ctx = {}, parent) {
     console.log(node.tagName);
 
     let isComponent = false;
+
+    // handle attributes
     let attrs = {};
     let attributes = node.attributes;
     for (var i = 0; i < attributes.length; i++) {
@@ -55,7 +67,7 @@ function theDOMElementWalker(node, ctx = {}, parent) {
       delete attrs.id;
     }
 
-    parent.children = parent.children || [];
+    // create child
     let child = {
       id,
       attrs,
@@ -65,8 +77,11 @@ function theDOMElementWalker(node, ctx = {}, parent) {
     if (isComponent)
       child.isComponent = true;
 
+    // update parent (which points to an Object in context)
+    parent.children = parent.children || [];
     parent.children.push(child);
 
+    // core traverse algorithm
     let childNode = node.firstChild;
 
     // while traversing children of node
