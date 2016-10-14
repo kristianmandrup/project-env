@@ -31,7 +31,7 @@ console.log('children', c.childNodes)
 
 function theDOMElementWalker(node, ctx = {}, parent) {
   if (node.nodeType == 3) {
-    parent.text = node.nodeValue;
+    parent.text = node.nodeValue.trim();
     return; 
   }
 
@@ -97,16 +97,91 @@ function theDOMElementWalker(node, ctx = {}, parent) {
 }
 
 var component = document.querySelector(".component");
-var ctx = theDOMElementWalker(component, {root: {}});
+var ctx = theDOMElementWalker(component, {root: {}, components: {}});
 console.log(JSON.stringify(ctx, null, '  '));
 
+class HtmlConverter {
+  constructor(node, indentationLv = 0, opts = {spaceCount: 2 }) {
+    this.node = node;
+    this.attrs = node.attrs;
+    this.children = node.children;
+    this.text = node.text;
+    this.indentationLv = indentationLv; 
+    this.spaceCount = opts.spaceCount || 2;
+  }
 
-function toVueComponent(component) {
-  return component;
+  convert() {
+    return this.createTag();
+  }
+
+  createAttribute(name, value) {
+    if (Array.isArray(value))
+      value = value.join(' ');
+
+    return `${name}="${value}"`;
+  }
+
+  atrributes() {
+    return Object.keys(this.attrs).map( (name) => {
+      return this.createAttribute(name, this.attrs[name]);
+    }).join(' ');
+  }
+
+  tag() {
+    return [this.node.name, this.atrributes()].join(' ').trim();
+  }
+
+  indent(offSet) {
+    return new Array((this.indentationLv + offSet) * this.spaceCount).join(' ');
+  }
+
+  get longText() {
+    return this.text.length > 30;
+  }
+
+  childTags() {
+    if (!this.children)
+      return '';
+
+    let indent = this.indent(1);
+    let newIndentationLv = this.indentationLv + 1;
+    let childHtml = this.children.map(child => new HtmlConverter(child, newIndentationLv).convert()).join(`\n${indent}`);
+    let indented = [`\n${indent}${childHtml}\n`];       
+    if (this.text && this.text.length > 0)
+      indented.push(`\n${indent}${this.text}\n`);    
+    
+    return indented.join('');     
+  }
+  
+  createTag() {
+    if (this.children || this.longText) {
+      return `<${this.tag()}>${this.childTags()}${this.indent(0)}</${this.node.name}>`;
+    } else {
+      return `<${this.tag()}>${this.text || ''}</${this.node.name}>`;
+    }        
+  }
 }
 
 
-var vue = toVueComponent(ctx.components[0]);
+class VueComponent {
+  constructor(component) {
+    this.component = component;
+  }
+  // make text nodes into data properties
+  // create HTML for template
+  view() {
+    return new HtmlConverter(this.component).convert();
+  }
+
+  viewModel() {
+    
+  }
+}
+
+
+let vue = new VueComponent(ctx.components['myNavWrapper']);
+let view = vue.view();
+console.log(view);
 
 // https://www.kirupa.com/html5/traversing_the_dom.htm
 // c.childNodes.map(node => console.log(node));
