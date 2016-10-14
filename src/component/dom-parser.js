@@ -74,8 +74,11 @@ function theDOMElementWalker(node, ctx = {}, parent) {
       name: node.tagName.toLowerCase()
     }
 
-    if (isComponent)
+    if (isComponent) {
       child.isComponent = true;
+      ctx.components[id] = child;
+    }
+      
 
     // update parent (which points to an Object in context)
     parent.children = parent.children || [];
@@ -96,6 +99,14 @@ function theDOMElementWalker(node, ctx = {}, parent) {
 var component = document.querySelector(".component");
 var ctx = theDOMElementWalker(component, {root: {}});
 console.log(JSON.stringify(ctx, null, '  '));
+
+
+function toVueComponent(component) {
+  return component;
+}
+
+
+var vue = toVueComponent(ctx.components[0]);
 
 // https://www.kirupa.com/html5/traversing_the_dom.htm
 // c.childNodes.map(node => console.log(node));
