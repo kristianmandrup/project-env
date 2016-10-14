@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const domify = require('domify');
+const { camelCase } = require('lodash');
 const jsdomLib = require('jsdom');
 const jsdom = jsdomLib.jsdom();
 const serializeDocument = jsdomLib.serializeDocument;
@@ -11,10 +12,10 @@ let page = fs.readFileSync(htmlPagePath, 'utf8');
 const document = domify(page, jsdom.defaultView.document);
 
 const components = document.querySelectorAll(".component");
-console.log('components', components);
+// console.log('components', components);
 
 const c = components[0];
-console.log('children', c.childNodes)
+// console.log('children', c.childNodes)
 
 // alternatively simply use html2json or himalaya (recommended)
 // this is for full control!!
@@ -36,7 +37,7 @@ function theDOMElementWalker(node, ctx = {}, parent) {
   }
 
   if (node.nodeType == 1) {
-    console.log(node.tagName);
+    // console.log(node.tagName);
 
     let isComponent = false;
 
@@ -98,7 +99,7 @@ function theDOMElementWalker(node, ctx = {}, parent) {
 
 var component = document.querySelector(".component");
 var ctx = theDOMElementWalker(component, {root: {}, components: {}});
-console.log(JSON.stringify(ctx, null, '  '));
+// console.log(JSON.stringify(ctx, null, '  '));
 
 class HtmlConverter {
   constructor(node, indentationLv = 0, opts = {spaceCount: 2 }) {
@@ -163,13 +164,34 @@ class HtmlConverter {
   }
 }
 
+class TextExtractor {
+  constructor(node) {
+    this.node = node;
+    this.text = node.text;
+    this.children = node.children;
+  }
+
+  extract(texts = []) {
+    if (this.text && this.text.length > 0)
+      texts.push(this.text)
+
+    if (!this.children)
+      return;
+
+    for (let child of this.children) {
+      new TextExtractor(child).extract(texts)
+    } 
+    return texts;   
+  }
+}
+
 
 class VueComponent {
   constructor(component) {
     this.component = component;
   }
 
-  template() {
+  get template() {
     return {
       name: 'template',
       children: [this.component]
@@ -182,14 +204,23 @@ class VueComponent {
   }
 
   viewModel() {
-    
+    let texts = new TextExtractor(this.component).extract();
+
+    return texts.reduce( (model, text) => {
+      // console.log(text, model);
+      let key = camelCase(text);
+      model.data[key] = text;
+      return model;
+    }, {data: {}})
   }
 }
 
 
 let vue = new VueComponent(ctx.components['myNavWrapper']);
 let view = vue.view();
-console.log(view);
+let model = vue.viewModel();
+// console.log(view);
+console.log(model);
 
 // https://www.kirupa.com/html5/traversing_the_dom.htm
 // c.childNodes.map(node => console.log(node));
