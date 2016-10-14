@@ -122,6 +122,7 @@ class HtmlConverter {
   }
 
   atrributes() {
+    if (!this.attrs) return '';
     return Object.keys(this.attrs).map( (name) => {
       return this.createAttribute(name, this.attrs[name]);
     }).join(' ');
@@ -136,7 +137,7 @@ class HtmlConverter {
   }
 
   get longText() {
-    return this.text.length > 30;
+    return this.text && this.text.length > 30;
   }
 
   childTags() {
