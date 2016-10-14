@@ -167,10 +167,17 @@ class VueComponent {
   constructor(component) {
     this.component = component;
   }
+
+  template() {
+    return {
+      name: 'template',
+      children: [this.component]
+    }
+  }
   // make text nodes into data properties
   // create HTML for template
   view() {
-    return new HtmlConverter(this.component).convert();
+    return new HtmlConverter(this.template).convert();
   }
 
   viewModel() {
