@@ -24,6 +24,7 @@
     "fs-readfile-promise": "^3.0.0",
     "himalaya": "^0.2.1",
     "htmlparser2": "romellem/htmlparser2#master",
+    "inquirer-promise": "^1.0.0",
     "jsdom": "^9.6.0",
     "json-schema-faker": "^0.3.6",
     "jsonfile": "^2.3.1",

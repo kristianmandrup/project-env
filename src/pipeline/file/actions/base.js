@@ -1,5 +1,5 @@
-// TODO: Perhaps use inquirer-promise when it is updated
-const inquirer = require('inquirer');
+// See https://www.npmjs.com/package/inquirer-promise
+const inquirer = require('inquirer-promise');
 const fs = require('fs-promise');
 
 // For inspiration:
@@ -14,6 +14,7 @@ export default class Base {
     this.srcPath = this.paths.src;
     this.destPath = this.paths.dest;
 
+    // TODO: use await to wait for answers to questions :) 
     this.ask = inquirer.prompt;     
     this.fs = fs;
     this.exists = {};
