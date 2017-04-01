@@ -1,5 +1,7 @@
 # project-env
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kristianmandrup/project-env.svg)](https://greenkeeper.io/)
+
 Project environment library for node projects. Can be used to collect stats on the project 
 and compare with artefact environment requirements. This can be used to determine if a given artefact is suitable for the project.
 
