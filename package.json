@@ -9,7 +9,7 @@
   },
   "main": "index.js",
   "dependencies": {
-    "acorn": "^4.0.3",
+    "acorn": "^5.0.2",
     "ast-types": "^0.9.0",
     "babel-polyfill": "^6.13.0",
     "bluebird": "^3.4.6",
@@ -20,17 +20,17 @@
     "escodegen": "^1.8.1",
     "esrecurse": "^4.1.0",
     "fs-extra-promise": "^0.4.1",
-    "fs-promise": "^0.5.0",
+    "fs-promise": "^2.0.2",
     "fs-readfile-promise": "^3.0.0",
     "himalaya": "^0.2.1",
     "htmlparser2": "romellem/htmlparser2#master",
     "inquirer-promise": "^1.0.0",
     "jsdom": "^9.6.0",
-    "json-schema-faker": "^0.3.6",
+    "json-schema-faker": "^0.4.1",
     "jsonfile": "^2.3.1",
     "jsonschema": "^1.1.0",
     "lodash": "^4.16.4",
-    "mock-fs": "^3.11.0",
+    "mock-fs": "^4.2.0",
     "semver": "^5.3.0",
     "url-join": "^1.1.0"
   },
@@ -45,7 +45,7 @@
     "chai": "^3.5.0",
     "mocha": "^3.0.2",
     "nodemon": "^1.8.1",
-    "superagent": "^2.2.0",
+    "superagent": "^3.5.2",
     "superagent-promise": "^1.1.0"
   }
 }
